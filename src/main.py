@@ -1,6 +1,8 @@
 import pandas as pd
 import numpy as np
 
+from src.obj.command import Command
+
 
 def print_main_menu():
     width = 15
@@ -16,9 +18,7 @@ def print_main_menu():
     print(f'{"": <{width}} --freelunch=True|False --sex=Male|Female --hasWebsite=True|False')
     print(f'{"info": <{width}} Displays general information about a student.')
     print(f'{"Modifiers:": <{width}} --minority=True|False --locationState=state --locationCity=city')
-
-
-
+    print(f'{"quit": <{width}} Exits out of the program.')
 
 
 if __name__ == '__main__':
@@ -28,6 +28,11 @@ if __name__ == '__main__':
     print(df_datafinder.columns)
     print(df_datafinder.info())
     print(df_datafinder.describe())
-    command = ''
-
+    command_query = ''
+    while command_query != 'quit':
+        # Take input
+        command_query = input("Enter a command: ")
+        if Command.is_valid(command_query):
+            # Run commands
+            command = Command.create_command(command_query)
 
