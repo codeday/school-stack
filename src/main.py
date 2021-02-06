@@ -15,8 +15,8 @@ def print_main_menu():
     print(f'Command syntax: <command> --modifiers... <rows>')
     print(f'{"schools": <{width}} Displays schools with highest number of students.')
     print(f'{"Modifiers:": <{width}} --minority=True|False --locationState=state --locationCity=city')
-    print(f'{"": <{width}} --freelunch=True|False --sex=Male|Female --hasWebsite=True|False')
-    print(f'{"info": <{width}} Displays general information about a student.')
+    print(f'{"": <{width}} --free&reducedLunch=True|False --sex=Male|Female --hasWebsite=True|False')
+    print(f'{"info": <{width}} Displays general information about a particular statistic.')
     print(f'{"Modifiers:": <{width}} --minority=True|False --locationState=state --locationCity=city')
     print(f'{"quit": <{width}} Exits out of the program.')
 
@@ -26,7 +26,10 @@ if __name__ == '__main__':
     # Load Excel and Get By Sheet
     df_excel = pd.ExcelFile('../school-info.xlsx')
     df_datafinder: pd.DataFrame = df_excel.parse('ELSI Export')
+    df_datafinder.columns = [column.replace(" ", "").replace("Students", "").lower()
+                             for column in df_datafinder.columns]
 
+    print(df_datafinder.columns)
     # Command querying
     command_query = ''
     while command_query != 'quit':

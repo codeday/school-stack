@@ -4,13 +4,14 @@ from src.obj.modifier import Modifier
 import pandas as pd
 from uszipcode import SearchEngine
 
+
 class Command:
     valid_commands = ("schools", "info", "quit")
 
     def __init__(self, command: str):
         self.split_command = command.split(" ")
         if self.is_valid():
-            self.command = command
+            self.command = self.split_command[0]
             self.modifiers = Modifier.create_list_from_input(self.split_command)
             print(self.modifiers[0].name, self.modifiers[0].value)
 
@@ -20,5 +21,12 @@ class Command:
         return False
 
     def execute(self, data: pd.DataFrame):
-        data.groupby(self.modifiers)
-        print(data)
+        if self.command == 'schools':
+            query = ''
+            for item in self.modifiers:
+                if item.name == 'minority':
+                    
+                query += f'{item.name} == {item.value} and'
+
+            data.query(query, inplace=True)
+            print(data)
