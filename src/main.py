@@ -24,20 +24,19 @@ def print_main_menu():
 if __name__ == '__main__':
 
     # Load Excel and Get By Sheet
-    df_excel = pd.ExcelFile('../school-info.xls')
+    df_excel = pd.ExcelFile('../school-info.xlsx')
     df_datafinder = df_excel.parse('ELSI Export')
 
     # Command querying
     command_query = ''
     while command_query != 'quit':
+        if command_query != '':
+            # Create command object
+            c = Command(command_query)
+
+            # Execute command, prints results out to terminal
+            c.execute()
+
         # Take input
         command_query = input("Enter a command: ")
-
-        c = Command(command_query)
-        print(c.modifiers)
-        """
-        if Command.is_valid(command_query):
-            # Run commands
-            command = Command.create_command(command_query)
-            command.execute()"""
 

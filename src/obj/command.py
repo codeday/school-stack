@@ -4,19 +4,19 @@ from src.obj.modifier import Modifier
 
 
 class Command:
-    valid_commands = ["schools", "info", "quit"]
+    valid_commands = ("schools", "info", "quit")
 
     def __init__(self, command: str):
-        self.command = command
         self.split_command = command.split(" ")
-        self.modifiers = [s for s in self.split_command if "--" in s]
+        if self.is_valid():
+            self.command = command
+            self.modifiers = Modifier.create_list_from_input(self.split_command)
+            print(self.modifiers[0].name, self.modifiers[0].value)
 
     def is_valid(self) -> bool:
-        pass
-
-    @staticmethod
-    def create_command(command_query: str) -> Command:
-        pass
+        if self.split_command[0].startswith(Command.valid_commands):
+            return True
+        return False
 
     def execute(self):
         pass
