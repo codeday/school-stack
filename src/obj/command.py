@@ -1,7 +1,8 @@
 from __future__ import annotations
-
 from src.obj.modifier import Modifier
 
+import pandas as pd
+from uszipcode import SearchEngine
 
 class Command:
     valid_commands = ("schools", "info", "quit")
@@ -18,5 +19,6 @@ class Command:
             return True
         return False
 
-    def execute(self):
-        pass
+    def execute(self, data: pd.DataFrame):
+        data.groupby(self.modifiers)
+        print(data)

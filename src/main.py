@@ -25,7 +25,7 @@ if __name__ == '__main__':
 
     # Load Excel and Get By Sheet
     df_excel = pd.ExcelFile('../school-info.xlsx')
-    df_datafinder = df_excel.parse('ELSI Export')
+    df_datafinder: pd.DataFrame = df_excel.parse('ELSI Export')
 
     # Command querying
     command_query = ''
@@ -35,8 +35,7 @@ if __name__ == '__main__':
             c = Command(command_query)
 
             # Execute command, prints results out to terminal
-            c.execute()
+            c.execute(df_datafinder)
 
         # Take input
         command_query = input("Enter a command: ")
-
