@@ -32,10 +32,10 @@ class Command:
                     query += f'{item.name} == {item.value} and'
                 elif item.name == 'minority':
                     # Add up all minorities
-                    group_by += ["Female Students", "American Indian/Alaska Native Students",
-                                 "Asian or Asian/Pacific Islander Students", "Hispanic Students",
-                                 "Black Students", "Hawaiian Nat./Pacific Isl. Students",
-                                 "Free & Reduced Lunch Students"]
+                    group_by.extend(["Female Students", "American Indian/Alaska Native Students",
+                                     "Asian or Asian/Pacific Islander Students", "Hispanic Students",
+                                     "Black Students", "Hawaiian Nat./Pacific Isl. Students",
+                                     "Free & Reduced Lunch Students"])
                 elif item.name == 'sex':
                     if item.value == 'Male':
                         group_by += 'Male'
@@ -47,6 +47,8 @@ class Command:
                     pass
 
             if len(query) > 5:
+                query.removesuffix(" and")
                 data.query(query, inplace=True)
-            data.groupby(group_by)
+
+            data.sort_values(group_by, ascending=False, inplace=True)
             print(data)
