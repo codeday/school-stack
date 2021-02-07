@@ -6,7 +6,12 @@ class Modifier:
 
     def __init__(self, name: str, value):
         self.name = name
-        self.value = value
+        if value == 'True':
+            self.value = True
+        elif value == 'False':
+            self.value = False
+        else:
+            self.value = value
 
     @staticmethod
     def create_list_from_input(split_command: list[str]) -> list[Modifier]:

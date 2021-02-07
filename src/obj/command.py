@@ -22,11 +22,31 @@ class Command:
 
     def execute(self, data: pd.DataFrame):
         if self.command == 'schools':
+            # Doing a query is for filtering based on row values like location
             query = ''
-            for item in self.modifiers:
-                if item.name == 'minority':
-                    
-                query += f'{item.name} == {item.value} and'
 
-            data.query(query, inplace=True)
+            # Doing a group by is for filtering based on a column heading like # of male students
+            group_by = []
+            for item in self.modifiers:
+                if isinstance(item.value, str):
+                    query += f'{item.name} == {item.value} and'
+                elif item.name == 'minority':
+                    # Add up all minorities
+                    group_by += ["Female Students", "American Indian/Alaska Native Students",
+                                 "Asian or Asian/Pacific Islander Students", "Hispanic Students",
+                                 "Black Students", "Hawaiian Nat./Pacific Isl. Students",
+                                 "Free & Reduced Lunch Students"]
+                elif item.name == 'sex':
+                    if item.value == 'Male':
+                        group_by += 'Male'
+                    else:
+                        group_by += 'Female'
+                elif item.name == 'free&reducedLunch':
+                    group_by += "Free & Reduced Lunch Students" if item.value else item.value
+                if item.name == "hasWebsite":
+                    pass
+
+            if len(query) > 5:
+                data.query(query, inplace=True)
+            data.groupby(group_by)
             print(data)
