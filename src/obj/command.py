@@ -39,21 +39,21 @@ class Command:
             sort_by = []
             for item in self.modifiers:
                 # All modifiers below are for the query function
-                if isinstance(item.value, str):
+                if item.name == "locationCity" or item.name == "locationState":
                     query += f'{item.name} == {item.value} and'
                 # All modifiers below are for the sort_values function
-                elif item.name == 'minority':
+                elif item.name == "minority":
                     sort_by.extend(["American Indian/Alaska Native Students",
                                      "Asian or Asian/Pacific Islander Students", "Hispanic Students",
                                      "Black Students", "Hawaiian Nat./Pacific Isl. Students",
                                      "Free & Reduced Lunch Students"])
-                elif item.name == 'sex':
-                    if item.value == 'Male':
-                        sort_by += 'Male Students'
+                elif item.name == "sex":
+                    if item.value == "Male":
+                        sort_by.extend(["Male Students"])
                     else:
-                        sort_by += 'Female Students'
-                elif item.name == 'free&reducedLunch':
-                    sort_by += "Free & Reduced Lunch Students" if item.value else item.value
+                        sort_by.extend(["Female Students"])
+                elif item.name == "free&reducedLunch":
+                    sort_by.extend(["Free & Reduced Lunch Students"]) if item.value else item.value
                 if item.name == "hasWebsite":
                     pass
 
