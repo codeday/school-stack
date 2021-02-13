@@ -29,6 +29,10 @@ if __name__ == '__main__':
     df_datafinder: pd.DataFrame = df_excel.parse('ELSI Export')
     pd.set_option('display.width', 500)
     pd.set_option('display.max_columns', 18)
+    df_datafinder.rename(columns={'Location Name': 'locationState', 'Location City': 'locationCity'}, inplace=True)
+    df_datafinder["locationState"] = df_datafinder["locationState"].str.lower()
+    df_datafinder["locationCity"] = df_datafinder["locationCity"].str.lower()
+
 
     # Command querying
     command_query = ''

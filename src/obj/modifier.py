@@ -19,6 +19,6 @@ class Modifier:
         modifier_objects: list[Modifier] = []
         for modifier_string in modifiers_without_dashes:
             split_at_equal = modifier_string.split("=")
-            modifier_objects.append(Modifier(split_at_equal[0], split_at_equal[1]))
+            modifier_objects.append(Modifier(split_at_equal[0], split_at_equal[1].lower()))
 
         return modifier_objects

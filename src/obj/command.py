@@ -23,7 +23,6 @@ class Command:
                 self.split_command.pop()
                 print(self.split_command)
             self.modifiers = Modifier.create_list_from_input(self.split_command)
-            print(self.modifiers[0].name, self.modifiers[0].value)
 
     def is_valid(self) -> bool:
         if self.split_command[0].startswith(Command.valid_commands):
@@ -33,14 +32,15 @@ class Command:
     def execute(self, data: pd.DataFrame):
         if self.command in self.valid_commands:
             # Doing a query is for filtering based on row values like location
-            query = ''
+            query = ""
 
             # Doing a group by is for filtering based on a column heading like # of male students
             sort_by = []
             for item in self.modifiers:
                 # All modifiers below are for the query function
                 if item.name == "locationCity" or item.name == "locationState":
-                    query += f'{item.name} == {item.value} and'
+                    query += f'{item.name} == "{item.value}" and '
+                    print(query)
                 # All modifiers below are for the sort_values function
                 elif item.name == "minority":
                     sort_by.extend(["American Indian/Alaska Native Students",
@@ -57,13 +57,15 @@ class Command:
                 if item.name == "hasWebsite":
                     pass
 
+            print("After", query)
             # Only query if there are actual modifiers given by user
             if len(query) >= 1:
-                query.removesuffix(" and")
-                data.query(query, inplace=True)
+                new_query = query[:len(query)-5]
+                print(new_query)
+                data.query(new_query, inplace=True)
 
             # Only sort_values if there are actual modifier values given by user
             if len(sort_by) >= 1:
                 data.sort_values(sort_by, ascending=False, inplace=True, ignore_index=True)
 
-            print(data.loc[self.row_start:self.row_end, :])
+            print(data)
