@@ -43,18 +43,18 @@ class Command:
                     print(query)
                 # All modifiers below are for the sort_values function
                 elif item.name == "minority":
-                    sort_by.extend(["American Indian/Alaska Native Students",
-                                     "Asian or Asian/Pacific Islander Students", "Hispanic Students",
-                                     "Black Students", "Hawaiian Nat./Pacific Isl. Students",
-                                     "Free & Reduced Lunch Students"])
+                    sort_by.extend(['American Indian/Alaska Native Students',
+                                     'Asian or Asian/Pacific Islander Students', 'Hispanic Students',
+                                     'Black Students', 'Hawaiian Nat./Pacific Isl. Students',
+                                     'Free & Reduced Lunch Students'])
                 elif item.name == "sex":
-                    if item.value == "Male":
+                    if item.value == 'Male':
                         sort_by.extend(["Male Students"])
                     else:
                         sort_by.extend(["Female Students"])
-                elif item.name == "free&reducedLunch":
+                elif item.name == 'free&reducedLunch':
                     sort_by.extend(["Free & Reduced Lunch Students"]) if item.value else item.value
-                if item.name == "hasWebsite":
+                if item.name == 'hasWebsite':
                     pass
             print("After", query)
             # Only query if there are actual modifiers given by user
@@ -64,9 +64,9 @@ class Command:
                 print(new_query)
                 organized_dataframe = data.query(new_query)
                 if len(sort_by) >= 1:
-                    organized_dataframe = organized_dataframe.sort_values(sort_by, ascending=False, ignore_index=True)
+                    organized_dataframe = organized_dataframe.sort_values(by=sort_by, ascending=False, ignore_index=True)
             # Only sort_values if there are actual modifier values given by user
             elif len(sort_by) >= 1:
-                organized_dataframe = data.sort_values(sort_by, ascending=False, ignore_index=True)
+                organized_dataframe = data.sort_values(by=sort_by, ascending=False, ignore_index=True)
 
             print(organized_dataframe.iloc[self.row_start:self.row_end, :])
