@@ -33,7 +33,6 @@ if __name__ == '__main__':
     df_datafinder["locationState"] = df_datafinder["locationState"].str.lower()
     df_datafinder["locationCity"] = df_datafinder["locationCity"].str.lower()
 
-
     # Command querying
     command_query = ''
     while command_query != 'quit':

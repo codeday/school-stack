@@ -56,16 +56,17 @@ class Command:
                     sort_by.extend(["Free & Reduced Lunch Students"]) if item.value else item.value
                 if item.name == "hasWebsite":
                     pass
-
             print("After", query)
             # Only query if there are actual modifiers given by user
+            organized_dataframe: pd.DataFrame = data
             if len(query) >= 1:
                 new_query = query[:len(query)-5]
                 print(new_query)
-                data.query(new_query, inplace=True)
-
+                organized_dataframe = data.query(new_query)
+                if len(sort_by) >= 1:
+                    organized_dataframe = organized_dataframe.sort_values(sort_by, ascending=False, ignore_index=True)
             # Only sort_values if there are actual modifier values given by user
-            if len(sort_by) >= 1:
-                data.sort_values(sort_by, ascending=False, inplace=True, ignore_index=True)
+            elif len(sort_by) >= 1:
+                organized_dataframe = data.sort_values(sort_by, ascending=False, ignore_index=True)
 
-            print(data)
+            print(organized_dataframe.iloc[self.row_start:self.row_end, :])
