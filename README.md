@@ -10,9 +10,9 @@ for in terms of their target schools they wish to contact.
 </div>
 
 ### Noteworthy Commands
-Keep in mind, the arguments to each command is completely optional, an example to get the school with the most female students 
+Keep in mind, the arguments to each command is completely optional, an example to get the top 10 schools with the most female students 
  would be:
-> schools --sex=Female
+> schools --sex=Female 0:10
 
 | command | arguments                                                                                                                                                                                        | value of argument                                                                          | summary                                                                                                   |
 |---------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------|
