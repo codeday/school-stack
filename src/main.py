@@ -9,14 +9,15 @@ def print_main_menu():
     add_modifier_width = 5
     print(f'\n\nWelcome to CodeDays School-Stack Program.')
     print(f'Each command will display the first 10 rows, you can specify a specific')
-    print(f'index of rows by following the command with 101-200 for instance.\n')
+    print(f'index of rows by following the command with 101:200 for instance.\n')
 
     print(f'Please select an option from the list below:')
 
     print(f'Command syntax: <command> --modifiers... <rows>')
     print(f'{"schools": <{width}} Displays schools with highest number of students.')
-    print(f'{"Modifiers:": <{width + add_modifier_width}} --minority=True|False --locationState=state --locationCity=city')
-    print(f'{"": <{width + add_modifier_width}} --free&reducedLunch=True|False --sex=Male|Female --hasWebsite=True|False')
+    print(f'{"Modifiers:": <{width + add_modifier_width}} --locationZip=num OR --locationState=state --locationCity=city')
+    print(f'{"": <{width + add_modifier_width}} --free&reducedLunch=True|False --sex=Male|Female ')
+    print(f'{"": <{width + add_modifier_width}} --minority=True|False --hasWebsite=True|False')
     print(f'{"info": <{width}} Displays general information about a particular statistic.')
     print(f'{"Modifiers:": <{width + add_modifier_width}} --minority=True|False --locationState=state --locationCity=city')
     print(f'{"quit": <{width}} Exits out of the program.')
