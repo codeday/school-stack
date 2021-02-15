@@ -31,6 +31,7 @@ class Command:
 
     def execute(self, data: pd.DataFrame):
         if self.command in self.valid_commands:
+            organized_dataframe: pd.DataFrame = data
             # Doing a query is for filtering based on row values like location
             query = ""
 
@@ -44,9 +45,9 @@ class Command:
                 # All modifiers below are for the sort_values function
                 elif item.name == "minority":
                     sort_by.extend(['American Indian/Alaska Native Students',
-                                     'Asian or Asian/Pacific Islander Students', 'Hispanic Students',
-                                     'Black Students', 'Hawaiian Nat./Pacific Isl. Students',
-                                     'Free & Reduced Lunch Students'])
+                                    'Asian or Asian/Pacific Islander Students', 'Hispanic Students',
+                                    'Black Students', 'Hawaiian Nat./Pacific Isl. Students',
+                                    'Free & Reduced Lunch Students'])
                 elif item.name == "sex":
                     if item.value == 'Male':
                         sort_by.extend(["Male Students"])
@@ -55,16 +56,19 @@ class Command:
                 elif item.name == 'free&reducedLunch':
                     sort_by.extend(["Free & Reduced Lunch Students"]) if item.value else item.value
                 if item.name == 'hasWebsite':
-                    pass
-            print("After", query)
+                    if item.value == 'true':
+                        organized_dataframe = organized_dataframe.dropna(subset=['Web Site URL'])
+                    else:
+                        organized_dataframe = organized_dataframe[organized_dataframe['Web Site URL'].isnull()]
+
             # Only query if there are actual modifiers given by user
-            organized_dataframe: pd.DataFrame = data
             if len(query) >= 1:
-                new_query = query[:len(query)-5]
+                new_query = query[:len(query) - 5]
                 print(new_query)
                 organized_dataframe = data.query(new_query)
                 if len(sort_by) >= 1:
-                    organized_dataframe = organized_dataframe.sort_values(by=sort_by, ascending=False, ignore_index=True)
+                    organized_dataframe = organized_dataframe.sort_values(by=sort_by, ascending=False,
+                                                                          ignore_index=True)
             # Only sort_values if there are actual modifier values given by user
             elif len(sort_by) >= 1:
                 organized_dataframe = data.sort_values(by=sort_by, ascending=False, ignore_index=True)
